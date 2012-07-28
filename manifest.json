@@ -1,0 +1,12 @@
+{
+  "name": "Personalize New Tab",
+  "version": "1.0",
+  "icons": {"16": "new-tab-icon-16.png",
+            "48": "new-tab-icon-48.png",
+            "128": "new-tab-icon.png"},
+  "description": "Extension to allow user to set the 'new tab' page",
+  "options_page": "options.html",
+  "chrome_url_overrides": {
+    "newtab": "new-tab.html"
+  }
+}

@@ -1,0 +1,10 @@
+<script>
+
+    var getCurrentUrl = function() {
+        return localStorage['new-tab'] || 'http://google.com';
+    }
+
+    var current = getCurrentUrl();
+    document.location = current;
+
+</script>

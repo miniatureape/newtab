@@ -1,0 +1,109 @@
+<style>
+    body {
+        font-family: "Helvetica", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #efefef;
+    }
+    h1, h2 {
+        padding: 20px;
+        margin: 0;
+    }
+    h1 {
+        background: #ddd;
+    }
+    h2 {
+        font-size: 18px;
+    }
+    p {
+        margin: 0;
+        padding: 10px 20px;
+        background: #eee;
+    }
+
+    label {
+        display: inline-block;
+        width: 75px;
+    }
+
+    #msg {
+        display: none;
+    }
+
+    .success {
+        background-color: #A9E396;
+    }
+
+    .url {
+        border: 1px solid #666;
+        padding: 5px;
+        background: #ddd;
+        width: 300px;
+    }
+
+    #submit {
+        padding: 5px;
+    }
+
+    .hint {
+        margin: 0 0 0 95px;
+        padding: 0;
+        font-size: 13px;
+        color: #666;
+    }
+
+</style>
+<h1>New Tab Preferences</h1>
+<h2 id="msg"></h2>
+<p>Enter a url in the field below and save.<p>
+    <label>URL:</label><input type="text" id="url" value="http://" class="url" />
+    <input type="submit" id="submit" value="Save" />
+</p>
+<p class="hint">
+    Hint: If you'd like a blank page, use <code>about://blank</code>
+</p>
+<script>
+
+    var msg = document.getElementById('msg');
+
+    var getSavedUrl = function() {
+        return localStorage['new-tab'] || 'http://google.com';
+    }
+
+    var setUrlInput = function (val) {
+        document.getElementById('url').value = val;
+    }
+
+    var getUrlInputValue = function() {
+        return document.getElementById('url').value;
+    }
+
+    var setUrl = function(val) {
+        localStorage['new-tab'] = val;
+    }
+
+    var showMsg = function(cls, txt, duration) {
+        duration = duration || 8000;
+        msg.className = cls;
+        msg.textContent = txt;
+        msg.style.display = 'block';
+        setTimeout(function() {
+            msg.style.display = 'none';
+            msg.className = '';
+        }, duration);
+    }
+
+    var initialize = function () {
+        setUrlInput(getSavedUrl());
+        document.getElementById('submit').addEventListener('click', function(e) {
+            e.preventDefault();
+            var newValue = getUrlInputValue();
+            if (!newValue.match(/:\/\//)) newValue = 'http://' + newValue;
+            setUrl(newValue)
+            showMsg('success', 'Saved Url: ' + newValue);
+        });
+    }
+
+    initialize();
+
+</script>
